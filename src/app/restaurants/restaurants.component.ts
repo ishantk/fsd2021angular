@@ -26,4 +26,7 @@ export class RestaurantsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addRestaurant(name: string, timeToDeliver: string, ratings: string, categories: string){
+    this.restaurants.push(new Restaurant(name, Number(timeToDeliver), Number(ratings), categories))
+  }
 }

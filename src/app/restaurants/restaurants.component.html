@@ -1,10 +1,16 @@
 <div class="content">
+
+    <input #name placeholder="Enter Restaurant Name">
+    <input #time placeholder="Enter Time To Deliver">
+    <input #ratings placeholder="Enter Ratings">
+    <input #categories placeholder="Enter Categories">
+    <button (click)="addRestaurant(name.value, time.value, ratings.value, categories.value)">Add</button>
+
     <h3>List of Restaurants</h3>
-
     <p *ngFor="let restaurant of restaurants">
-        {{restaurant.name}} | {{restaurant.timeToDeliver}} mins
+        {{restaurant.name}} | {{restaurant.timeToDeliver}} mins 
+        <button>Delete</button>
     </p>
-
 </div>
 
 
