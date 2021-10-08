@@ -24,14 +24,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.route.queryParams.subscribe(params => {
       this.query = params['query']
       this.name = params['name']
     });
-
-
   }
-
 
 }
