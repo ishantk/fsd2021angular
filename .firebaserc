@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fsd2021b1": {
+      "hosting": {
+        "fsd2021angular": [
+          "fsd2021b1"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fsd2021b1"
+  }
+}
