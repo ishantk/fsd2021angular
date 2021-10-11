@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  // Explore Observer Design Pattern so as to closely understand the API Observable
+  documents: Observable<any[]>;
+
+  constructor(firestore: AngularFirestore) {
+    // Fetch Document from FirebaseFirestore :)
+    this.documents = firestore.collection("promo-codes").valueChanges();
+  }
 
   ngOnInit(): void {
   }
