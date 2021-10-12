@@ -1,5 +1,5 @@
 <div class="content">
-    <form [formGroup]="authForm">  
+    <form [formGroup]="authForm" (ngSubmit)="registerUser()">  
         <label for="email">Email</label>
         <input type="text" id="email" placeholder="john@example.com"
         formControlName="email">
@@ -8,7 +8,8 @@
         <input type="password" id="password" placeholder="Min 6 Characters"
         formControlName="password" >
         <br>
-        <button (click)="registerUser()">Register</button>
+        <!-- <button (click)="registerUser()">Register</button> -->
+        <button type="submit">Register</button>
 
     </form>
 

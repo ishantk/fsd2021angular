@@ -22,7 +22,6 @@ export class AuthenticateComponent implements OnInit {
 
   registerUser(){
     console.log(this.authForm.value);
-    
   }
 
 }
