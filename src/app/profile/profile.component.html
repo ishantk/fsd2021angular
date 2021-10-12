@@ -1,4 +1,4 @@
-<p>My Profile</p>
+<!-- <p>My Profile</p>
 <h4>{{ myProfile.name }}</h4>
 <h4>{{ myProfile.about }}</h4>
 <h4>{{ myProfile.email }}</h4>
@@ -11,4 +11,14 @@
     <button (click)="onButtonClicked()">Append</button>
     <h4>{{ message }}</h4>
 </div>
+</div> -->
+
+<div class="content">
+    <label for="email">Email ID</label>
+    <input type="text" id="email" [formControl]="email">
+    <button (click)="validate()">Validate</button>
+
+    EMAIL IS: {{email.value}}
+    <br>
+    MESSAGE IS: {{message}}
 </div>

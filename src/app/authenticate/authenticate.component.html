@@ -1,0 +1,18 @@
+<div class="content">
+    <form [formGroup]="authForm">  
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="john@example.com"
+        formControlName="email">
+        <br>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Min 6 Characters"
+        formControlName="password" >
+        <br>
+        <button (click)="registerUser()">Register</button>
+
+    </form>
+
+    FORM DATA:
+    {{authForm.value | json}}
+
+</div>

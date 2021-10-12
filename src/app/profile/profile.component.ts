@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import {Profile} from '../model/profile';
 
 @Component({
@@ -7,6 +8,9 @@ import {Profile} from '../model/profile';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  //email = new FormControl('demo@example.com');
+  email = new FormControl('');
 
   myProfile: Profile = {
     name: "John Watson",
@@ -17,7 +21,7 @@ export class ProfileComponent implements OnInit {
     address: "Redwood Shores"
   };
 
-  message = "Hello";
+  message = "";
   //data = 10;
   
   constructor() { }
@@ -27,6 +31,19 @@ export class ProfileComponent implements OnInit {
 
   onButtonClicked(){
     this.message = "This is Changed";
+  }
+
+  validate(){
+    // code here to check if email is blank or a valid email
+    if(this.email.value == ""){
+      // Exploratory Assignment
+      // Regular Expressions to Validate the Email
+      this.message = "Email is InValid";
+      this.email.setValue("demo@example.com");
+    }else{
+      this.message = "Email is Valid";
+    }
+    
   }
 
 }

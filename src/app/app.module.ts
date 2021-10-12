@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { environment } from 'src/environments/environment';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { environment } from 'src/environments/environment';
     ProfileComponent,
     HomeComponent,
     DashboardComponent,
-    RestaurantsComponent
+    RestaurantsComponent,
+    AuthenticateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
