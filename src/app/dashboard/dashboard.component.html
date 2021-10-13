@@ -1,8 +1,13 @@
 <div class="content">
     <h3>Welcome to DashBoard</h3>
 
-    <div class="chip" *ngFor="let document of documents | async">
+    <!-- <div class="chip" *ngFor="let document of documents | async">
             {{document.title}} | {{document.discount}}
+    </div> -->
+
+    <div *ngFor="let document of promoCodeList">
+        <!-- {{document | json}} -->
+        {{document.title}} | {{document.discount}}
     </div>
 
 </div>
