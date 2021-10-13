@@ -10,4 +10,23 @@
         {{document.title}} | {{document.discount}}
     </div>
 
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Discount</th>
+            <th scope="col">DiscountType</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let document of promoCodeList">
+            <th scope="row">1</th>
+            <td>{{document.title}}</td>
+            <td>{{document.discount}}</td>
+            <td>{{document.discountType}}</td>
+          </tr>
+        </tbody>
+      </table>
+
 </div>
