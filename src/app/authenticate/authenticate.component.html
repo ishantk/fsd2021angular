@@ -1,7 +1,9 @@
 <div class="content">
     <h3>REGISTER</h3>
+    <!-- <h3>Sign In</h3> -->
     <div class="mb-3">
-        <form [formGroup]="authForm" (ngSubmit)="registerUser()">  
+        <form [formGroup]="authForm" (ngSubmit)="registerUser()">
+        <!-- <form [formGroup]="authForm" (ngSubmit)="signInUser()">   -->
             <label for="email" class="form-label">Email</label>
             <input type="text" class="form-control" id="email" placeholder="john@example.com"
             formControlName="email">
@@ -12,10 +14,14 @@
             <br>
             <!-- <button (click)="registerUser()">Register</button> -->
             <button type="submit" class="btn btn-dark">Register</button>
+            <!-- <button type="submit" class="btn btn-dark">Sign In</button> -->
         </form>
     
         FORM DATA:
         {{authForm.value | json}}
+
+        <br>
+        UID: {{uid}}
     
     </div>
 </div>
