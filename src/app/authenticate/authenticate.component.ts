@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from 'firebase/auth';
-import { getFirestore, collection, addDoc } from '@firebase/firestore/lite'
+import { getFirestore, collection, addDoc, setDoc, doc, Timestamp} from '@firebase/firestore/lite'
 import { DBService } from '../db.service';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-authenticate',
@@ -36,14 +37,27 @@ export class AuthenticateComponent implements OnInit {
 
         // Save the user in DataBase :)
         const firestoreDB = getFirestore(this.db.app);
-        const usersCollection = collection(firestoreDB, 'users');
+        
+        /*const usersCollection = collection(firestoreDB, 'users');
         addDoc(usersCollection, {
           name: '',
           phone: '',
           email: this.authForm.value.email,
           profileImage: '',
           address: '',
-          uid: this.uid 
+          uid: this.uid,
+          creationTime: Timestamp.now()
+        });*/
+
+        const documentToWrite = doc(firestoreDB, 'users', this.uid);
+        setDoc(documentToWrite, {
+          name: '',
+          phone: '',
+          email: this.authForm.value.email,
+          profileImage: '',
+          address: '',
+          uid: this.uid, 
+          creationTime: Timestamp.now()
         });
     })
     .catch((error) =>{
