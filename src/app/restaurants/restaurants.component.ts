@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Restaurant } from '../model/restaurant';
 import { RestaurantsService } from '../restaurants.service';
+import { getFirestore, collection, addDoc, setDoc, doc, Timestamp} from '@firebase/firestore/lite'
+import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from '@firebase/storage'
+import { DBService } from '../db.service';
+
 
 @Component({
   selector: 'app-restaurants',
@@ -38,23 +42,46 @@ export class RestaurantsComponent implements OnInit {
     }
   );
 
-  restaurants = this.service.getRestaurants();
+  //restaurants = this.service.getRestaurants();
 
   // if the above array is suppose to be created by fetching data from Server
   // it will take time to load
 
   // Injection for Service in Constructor of Component
-  constructor(private service: RestaurantsService) { }
+  //constructor(private service: RestaurantsService) { }
+  constructor(private db: DBService) { }
+  
 
   ngOnInit(): void {
   }
 
   addRestaurant(name: string, timeToDeliver: string, ratings: string, categories: string){
-    this.restaurants.push(new Restaurant(name, Number(timeToDeliver), Number(ratings), categories))
+    //this.restaurants.push(new Restaurant(name, Number(timeToDeliver), Number(ratings), categories))
   }
+
+  uploadImgeToFirebase(){
+      const metadata = {
+        contentType: 'image/jpeg',
+      };
+      const filePath = this.restaurantForm.value.image;
+      const storageReference = getStorage();
+      const restaurantImageReference = ref(storageReference, "restaurant-images/"+this.restaurantForm.value.email+".jpg");
+      const uploadTask = uploadBytes(restaurantImageReference, filePath, metadata);
+      console.log("Image Uploaded Successfully");
+       
+  }
+  
 
   addRestaurantToFirebase(){
     console.log(this.restaurantForm.value);
+  
+    //1. Firstly, Upload the Image in Firebase Storage
+    //   After Image is uploaded we will get image download URL
+    //   in the form data, image FormControl value should be updated with download URL
+    //2. Save Data in Firebase
+
+    // 1. Uplaod Image
+    this.uploadImgeToFirebase();
     
   }
 }
