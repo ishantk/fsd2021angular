@@ -1,4 +1,4 @@
-<div class="content">
+<!-- <div class="content">
 
     <input #name placeholder="Enter Restaurant Name">
     <input #time placeholder="Enter Time To Deliver">
@@ -11,6 +11,73 @@
         {{restaurant.name}} | {{restaurant.timeToDeliver}} mins 
         <button>Delete</button>
     </p>
+</div> -->
+
+<div class="content">
+    <h3>Add Restaurant</h3>
+    <!-- <h3>Sign In</h3> -->
+    <div class="mb-3">
+        <form [formGroup]="restaurantForm" (ngSubmit)="addRestaurantToFirebase()">
+        
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="eg: Subway"
+            formControlName="name">
+            <br>
+
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" placeholder="+91 99999 11111"
+            formControlName="phone">
+            <br>
+
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="restaurant@example.com"
+            formControlName="email">
+            <br>
+
+            <label for="Veg" class="form-label">Select Type</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="veg">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Veg
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="nonVeg">
+                <label class="form-check-label" for="flexCheckDefault">
+                  NonVeg
+                </label>
+            </div>
+
+            <label for="servingType" class="form-label">Select Serving Type</label> <br>
+            <input type="radio" formControlName="servingType" value="delivery"> Delivery <br>
+            <input type="radio" formControlName="servingType" value="dining"> Dining <br>
+            <input type="radio" formControlName="servingType" value="both"> Both <br>
+           
+            <select formControlName="city">
+                <!-- <option>Ludhiana</option>
+                <option>Chandigarh</option> -->
+                <option *ngFor="let city of cities">
+                    {{city.cityName}}
+                </option>
+
+            </select>
+            <br>
+            <label for="image" class="form-label">Select Image</label> <br>
+            <input type="file" formControlName="image" accept="image/png image/jpeg">
+            <br>
+            <br>
+            
+            <button type="submit" class="btn btn-dark">Add Restaurant</button>
+            
+
+
+        </form>
+    
+        FORM DATA:
+        {{restaurantForm.value | json}}
+    
+    </div>
 </div>
 
 
