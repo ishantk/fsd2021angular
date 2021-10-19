@@ -20,6 +20,8 @@ export class RestaurantsComponent implements OnInit {
     new Restaurant("Subway", 15, 4.8, "sandwich, salads")
   ];*/
 
+  file: any;
+
   cities = [
     {cityName: "Select City", state:""},
     {cityName: "Ludhina", state:"Punjab", pinCode: [141001, 141002, 141005]},
@@ -59,16 +61,27 @@ export class RestaurantsComponent implements OnInit {
     //this.restaurants.push(new Restaurant(name, Number(timeToDeliver), Number(ratings), categories))
   }
 
+  pickFile(event:any){
+    this.file = event.target.files[0];
+    console.log(this.restaurantForm.value);
+    console.log(this.file);
+  }
+
   uploadImgeToFirebase(){
       const metadata = {
-        contentType: 'image/jpeg',
+        contentType: 'image/png',
       };
-      const filePath = this.restaurantForm.value.image;
       const storageReference = getStorage();
-      const restaurantImageReference = ref(storageReference, "restaurant-images/"+this.restaurantForm.value.email+".jpg");
-      const uploadTask = uploadBytes(restaurantImageReference, filePath, metadata);
-      console.log("Image Uploaded Successfully");
-       
+      const restaurantImageReference = ref(storageReference, "restaurant-images/"+this.file.name);
+      uploadBytes(restaurantImageReference, this.file, metadata).then((snapshot) => {
+       console.log("Image Uploaded Successfully");
+       getDownloadURL(snapshot.ref).then((downloadURL) => {
+        console.log('File available at', downloadURL);
+      });
+      });
+      
+
+      
   }
   
 
