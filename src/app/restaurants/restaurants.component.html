@@ -89,6 +89,7 @@
     <table class="table">
         <thead>
           <tr>
+            <th scope="col">Image</th>  
             <th scope="col">Name</th>
             <th scope="col">Phone</th>
             <th scope="col">Email</th>
@@ -96,6 +97,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let document of restaurantList">
+            <td> <img src={{document.imageUrl}} class="rounded-circle" width="64" height="64"> </td>  
             <td>{{document.name}}</td>
             <td>{{document.phone}}</td>
             <td>{{document.email}}</td>

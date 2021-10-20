@@ -50,7 +50,7 @@ export class AuthenticateComponent implements OnInit {
         });*/
 
         const documentToWrite = doc(firestoreDB, 'users', this.uid);
-        setDoc(documentToWrite, {
+        const userData = {
           name: '',
           phone: '',
           email: this.authForm.value.email,
@@ -58,7 +58,9 @@ export class AuthenticateComponent implements OnInit {
           address: '',
           uid: this.uid, 
           creationTime: Timestamp.now()
-        });
+        };
+        setDoc(documentToWrite, userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
     })
     .catch((error) =>{
       console.log("Something Went Wrong");
@@ -80,7 +82,8 @@ export class AuthenticateComponent implements OnInit {
       console.log("Something Went Wrong");
     });
   }
-
-
-
 }
+
+// Task
+// Since the user will be saved in localStorage
+// Navigate and show the options in the navigation bar accordingly
