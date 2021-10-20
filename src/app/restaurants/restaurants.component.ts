@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Restaurant } from '../model/restaurant';
 import { RestaurantsService } from '../restaurants.service';
-import { getFirestore, collection, addDoc, setDoc, doc, Timestamp} from '@firebase/firestore/lite'
-import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from '@firebase/storage'
+import { getFirestore, collection, addDoc, getDocs, doc, Timestamp} from '@firebase/firestore/lite'
+import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage'
 import { DBService } from '../db.service';
 
 
@@ -21,6 +21,9 @@ export class RestaurantsComponent implements OnInit {
   ];*/
 
   file: any;
+  restaurantList : any;
+  addView = false;
+  text = "Add Restaurant";
 
   cities = [
     {cityName: "Select City", state:""},
@@ -51,7 +54,9 @@ export class RestaurantsComponent implements OnInit {
 
   // Injection for Service in Constructor of Component
   //constructor(private service: RestaurantsService) { }
-  constructor(private db: DBService) { }
+  constructor(private db: DBService) { 
+    this.fetchPromoRestaurants();
+  }
   
 
   ngOnInit(): void {
@@ -59,6 +64,13 @@ export class RestaurantsComponent implements OnInit {
 
   addRestaurant(name: string, timeToDeliver: string, ratings: string, categories: string){
     //this.restaurants.push(new Restaurant(name, Number(timeToDeliver), Number(ratings), categories))
+  }
+
+  async fetchPromoRestaurants(){
+    const firestoreDB = getFirestore(this.db.app);
+    const promoCodeCollection = collection(firestoreDB, 'restaurants');
+    const snapshots = await getDocs(promoCodeCollection);
+    this.restaurantList = snapshots.docs.map(doc => doc.data());
   }
 
   pickFile(event:any){
@@ -77,7 +89,23 @@ export class RestaurantsComponent implements OnInit {
        console.log("Image Uploaded Successfully");
        getDownloadURL(snapshot.ref).then((downloadURL) => {
         console.log('File available at', downloadURL);
-      });
+        // Save Restaurant Object in FirebaseFirestore
+        const dataToSave = this.restaurantForm.value;
+        // Save this in Firebase
+        dataToSave['imageUrl'] = downloadURL;
+        dataToSave['creationTime'] = Timestamp.now();
+        console.log("dataToSave is: "+dataToSave);
+
+        const firestoreDB = getFirestore(this.db.app);
+        
+        const restaurantCollection = collection(firestoreDB, 'restaurants');
+        addDoc(restaurantCollection, dataToSave);
+        console.log("Restaurant Added");
+        
+    })
+    .catch((error) =>{
+      console.log("Something Went Wrong");
+    }); 
       });
       
 
@@ -95,6 +123,23 @@ export class RestaurantsComponent implements OnInit {
 
     // 1. Uplaod Image
     this.uploadImgeToFirebase();
-    
+
+    // 2. Save the Data
+    // Divide the logic and execute the functions accordingly
   }
+
+  changeView(){
+    this.addView = !this.addView;
+    if(this.addView){
+      this.text = "View Restaurants";
+    }else{
+      this.text = "Add Restaurant";
+    }
+  }
+
 }
+
+// Tasks
+// 1. Divide the logic and execute the functions accordingly
+// 2. Reset the form after adding the restaurant
+// 3. Implement Loader | Circular Progress Indicator
