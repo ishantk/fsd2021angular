@@ -13,12 +13,12 @@
     </p>
 </div> -->
 
-<div class="content">
+<div class="content" *ngIf="!updateMode">
     <button class="btn btn-dark" (click)="changeView()">{{text}}</button>
 </div>
 
 <div class="content" *ngIf="addView">
-    <h3>Add Restaurant</h3>
+    <h3>{{text}}</h3>
     <!-- <h3>Sign In</h3> -->
     <div class="mb-3">
         <form [formGroup]="restaurantForm" (ngSubmit)="addRestaurantToFirebase()">
@@ -72,7 +72,7 @@
             <br>
             <br>
             
-            <button type="submit" class="btn btn-dark">Add Restaurant</button>
+            <button type="submit" class="btn btn-dark">{{text}}</button>
             
 
 
@@ -101,6 +101,8 @@
             <td>{{document.name}}</td>
             <td>{{document.phone}}</td>
             <td>{{document.email}}</td>
+            <td><a routerLink="/restaurants" [queryParams]="{action: 'delete'}">DELETE</a></td>
+            <td><a routerLink="/restaurants" [queryParams]="{action: 'update'}" (click)="saveDataInSession(document)">UPDATE</a></td>
           </tr>
         </tbody>
       </table>
