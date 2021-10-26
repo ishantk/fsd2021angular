@@ -11,6 +11,7 @@ import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { environment } from 'src/environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { DishesComponent } from './dishes/dishes.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     HomeComponent,
     DashboardComponent,
     RestaurantsComponent,
-    AuthenticateComponent
+    AuthenticateComponent,
+    DishesComponent
   ],
   imports: [
     BrowserModule,

@@ -57,33 +57,30 @@ export class RestaurantsComponent implements OnInit {
   // Injection for Service in Constructor of Component
   //constructor(private service: RestaurantsService) { }
   constructor(private db: DBService, private route: ActivatedRoute) { 
-    this.fetchPromoRestaurants();
+    this.fetchRestaurants();
   }
   
   action: String = "";
+  restaurantData: any;
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.action = params['action']
-      if(this.action == "delete"){ // Delete Here
-        // We need dcoument id to be passed in function
-        const docId = "";
-        this.deleteRestaurant(docId);
-      }else if(this.action == "update"){  // Update Here
+     if(this.action == "update"){  // Update Here
         this.addView = true;
         this.updateMode = true;
         this.text = "Update Restaurant";
 
         const sessionData = sessionStorage.getItem("restaurant");
-        const restaurantData = JSON.parse(sessionData!);
+        this.restaurantData = JSON.parse(sessionData!);
 
         this.restaurantForm.patchValue(
           {
-            name: restaurantData.name,
-            email: restaurantData.email
+            name: this.restaurantData.name,
+            email: this.restaurantData.email
           }
         );
-        const docId = "";
-        this.updateRestaurant(docId);
+        
       }else{
         console.log("Do Nothing or Handle the Case");
       }
@@ -94,18 +91,25 @@ export class RestaurantsComponent implements OnInit {
     //this.restaurants.push(new Restaurant(name, Number(timeToDeliver), Number(ratings), categories))
   }
 
-  async fetchPromoRestaurants(){
+  async fetchRestaurants(){
     const firestoreDB = getFirestore(this.db.app);
     const promoCodeCollection = collection(firestoreDB, 'restaurants');
     const snapshots = await getDocs(promoCodeCollection);
+    
     this.restaurantList = snapshots.docs.map(
-      doc => doc.data()
+      doc => {
+          const data = doc.data();
+          data['docId'] = doc.id;
+          return data;
+      }
     );
+     
     console.log(this.restaurantList);
 
-    snapshots.docs.map(
-      doc => console.log(doc.id)
-    );
+    // snapshots.docs.map(
+    //   doc => console.log(doc.id)
+    // );
+
   }
 
   pickFile(event:any){
@@ -151,14 +155,29 @@ export class RestaurantsComponent implements OnInit {
   }
 
   updateRestaurant(docID: any){
+
+    if(this.restaurantForm.value.image != ""){
+      // Upload the Image
+    }
+
     const firestoreDB = getFirestore(this.db.app);
     const documentToWrite = doc(firestoreDB, 'restaurants', docID);
     const restaurantData = this.restaurantForm.value;
+    console.log("Updating Restaurant with Data:");
+    console.log(restaurantData);
+    
+    
     setDoc(documentToWrite, restaurantData);
   }
     
 
   addRestaurantToFirebase(){
+
+    if(this.updateMode){
+      this.updateRestaurant(this.restaurantData.docId);
+      return;
+    }
+
     console.log(this.restaurantForm.value);
   
     //1. Firstly, Upload the Image in Firebase Storage

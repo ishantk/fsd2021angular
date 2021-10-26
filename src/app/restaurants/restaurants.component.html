@@ -101,7 +101,8 @@
             <td>{{document.name}}</td>
             <td>{{document.phone}}</td>
             <td>{{document.email}}</td>
-            <td><a routerLink="/restaurants" [queryParams]="{action: 'delete'}">DELETE</a></td>
+            <td><a routerLink="/dishes" [queryParams]="{id: document.docId, name:document.name}" >DISHES</a></td>
+            <td><a routerLink="/restaurants" (click)="deleteRestaurant(document.docId)">DELETE</a></td>
             <td><a routerLink="/restaurants" [queryParams]="{action: 'update'}" (click)="saveDataInSession(document)">UPDATE</a></td>
           </tr>
         </tbody>
