@@ -7,8 +7,14 @@
     <li><a routerLink="/auth">Register/Login</a></li>
     <li><a routerLink="/profile">Profile</a></li>
     <li><a routerLink="/news">News</a></li>
+    <!-- <li><a routerLink="/lifecycle">LifeCycle</a></li> -->
   </ul>
 </nav>
+
+<div class="content">
+  <app-lifecyclehooks *ngIf="show" [quoteVariable]="quote"></app-lifecyclehooks>
+  <button (click)="changeQuote()">Change Quote</button>
+</div>
 
 <router-outlet></router-outlet>
 

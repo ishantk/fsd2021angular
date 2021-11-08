@@ -14,7 +14,13 @@ export class AppComponent {
   // Model -> Single Value Container called String
   // which are holding data for us :)
   title = 'fsd2021angular';
+  show = true;
+  quote = "Be Exceptional";
   
+  changeQuote(){
+    this.quote = "Work Hard";
+  }
+
   // Model -> Multi Value Container called Object
   profile = {
     name: 'John Watson',

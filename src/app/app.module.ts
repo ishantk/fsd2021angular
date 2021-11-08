@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { NewsComponent } from './news/news.component';
+import { LifecyclehooksComponent } from './lifecyclehooks/lifecyclehooks.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NewsComponent } from './news/news.component';
     RestaurantsComponent,
     AuthenticateComponent,
     DishesComponent,
-    NewsComponent
+    NewsComponent,
+    LifecyclehooksComponent
   ],
   imports: [
     BrowserModule,
