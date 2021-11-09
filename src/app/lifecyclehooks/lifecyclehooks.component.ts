@@ -9,6 +9,9 @@ export class LifecyclehooksComponent implements OnInit, OnDestroy, OnChanges, Af
 
   @Input() quoteVariable = "";
 
+  validTill = new Date(2022, 11, 31);
+  amount = 2000;
+
   constructor() { 
     console.log("[LifecycleHooksComponent] - Constructor");
   }

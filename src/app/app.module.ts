@@ -15,6 +15,7 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { NewsComponent } from './news/news.component';
 import { LifecyclehooksComponent } from './lifecyclehooks/lifecyclehooks.component';
+import { PromoCodePipeComponent } from './promo-code-pipe/promo-code-pipe.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LifecyclehooksComponent } from './lifecyclehooks/lifecyclehooks.compone
     AuthenticateComponent,
     DishesComponent,
     NewsComponent,
-    LifecyclehooksComponent
+    LifecyclehooksComponent,
+    PromoCodePipeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,2 +1,12 @@
 <h4>Welcome to Lifecycle Hooks</h4>
 <h5>Quote is: {{quoteVariable}}</h5>
+
+<!-- DatePipe -->
+<h5>Validity is till {{validTill | date }}</h5>
+<h5>Validity is till {{validTill | date | uppercase}}</h5>
+<h5>Validity is till {{validTill | date: "dd/MM/yy"}}</h5>
+
+<h5>Promo Code in Action</h5>
+<p>Promo Code: {{1200 | applyPormoCode}} </p>
+<p>Promo Code: {{amount | applyPormoCode: 3}} </p>
+<p>Promo Code: {{amount | applyPormoCode: 7}} </p>
